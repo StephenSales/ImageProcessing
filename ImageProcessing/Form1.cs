@@ -7,12 +7,14 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using WebCamLib;
 
 namespace ImageProcessing
 {
     public partial class Form1 : Form
     {
         Bitmap loaded, processed;
+        Device[] mgaDevice;
         public Form1()
         {
             InitializeComponent();
@@ -174,6 +176,67 @@ namespace ImageProcessing
                 }
             }
             pictureBox2.Image = processed;
+        }
+
+        Bitmap imageB, imageA, colorgreen, resultImage;
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            openFileDialog2.ShowDialog();
+        }
+
+        private void openFileDialog2_FileOk(object sender, CancelEventArgs e)
+        {
+            imageB = new Bitmap(openFileDialog2.FileName);
+            pictureBox3.Image = imageB;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            openFileDialog3.ShowDialog();
+        }
+
+        private void openFileDialog3_FileOk(object sender, CancelEventArgs e)
+        {
+            imageA = new Bitmap(openFileDialog3.FileName);
+            pictureBox4.Image = imageA;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            resultImage = new Bitmap(imageB.Width, imageB.Height);
+            //Color mygreen = Color.FromArgb(0, 0, 255);
+            //int greygreen = (mygreen.R + mygreen.G + mygreen.B) / 3;
+            int threshold = 5;
+
+            for (int x = 0; x < imageB.Width; x++)
+            {
+                for (int y = 0; y < imageB.Height; y++)
+                {
+                    Color pixel = imageB.GetPixel(x, y);
+                    Color backpixel = imageA.GetPixel(x, y);
+                    if (pixel.G > pixel.R + threshold && pixel.G > pixel.B + threshold)
+                        resultImage.SetPixel(x, y, backpixel);
+                    else
+                        resultImage.SetPixel(x, y, pixel);
+                }
+            }
+            pictureBox5.Image = resultImage;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            mgaDevice = DeviceManager.GetAllDevices();
+        }
+
+        private void cameraOnToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            mgaDevice[0].ShowWindow(pictureBox1);
+        }
+
+        private void cameraOffToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            mgaDevice[0].Stop();
         }
     }
 }
