@@ -1,3 +1,4 @@
+using ImageProcess2;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -237,6 +238,54 @@ namespace ImageProcessing
         private void cameraOffToolStripMenuItem_Click(object sender, EventArgs e)
         {
             mgaDevice[0].Stop();
+        }
+
+        public class ConvMatrix
+        {
+            public int TopLeft = 0, TopMid = 0, TopRight = 0;
+            public int MidLeft = 0, Pixel = 1, MidRight = 0;
+            public int BottomLeft = 0, BottomMid = 0, BottomRight = 0;
+            public int Factor = 1;
+            public int Offset = 0;
+            public void SetAll(int nVal)
+            {
+                TopLeft = TopMid = TopRight = MidLeft = Pixel = MidRight = BottomLeft = BottomMid = BottomRight = nVal;
+            }
+        }
+
+        private void smoothToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            processed = new Bitmap(loaded);
+            BitmapFilter.Smooth(processed, 1);
+            pictureBox2.Image = processed;
+        }
+
+        private void gaussianBlurToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            processed = new Bitmap(loaded);
+            BitmapFilter.GaussianBlur(processed, 4);
+            pictureBox2.Image = processed;
+        }
+
+        private void sharpenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            processed = new Bitmap(loaded);
+            BitmapFilter.Sharpen(processed, 11);
+            pictureBox2.Image = processed;
+        }
+
+        private void meanRemovalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            processed = new Bitmap(loaded);
+            BitmapFilter.MeanRemoval(processed, 9);
+            pictureBox2.Image = processed;
+        }
+
+        private void embossLaplacianToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            processed = new Bitmap(loaded);
+            BitmapFilter.EmbossLaplacian(processed);
+            pictureBox2.Image = processed;
         }
     }
 }

@@ -55,6 +55,12 @@
             cameraOffToolStripMenuItem = new ToolStripMenuItem();
             videoToolStripMenuItem = new ToolStripMenuItem();
             greyscaleToolStripMenuItem1 = new ToolStripMenuItem();
+            convolutionToolStripMenuItem = new ToolStripMenuItem();
+            smoothToolStripMenuItem = new ToolStripMenuItem();
+            gaussianBlurToolStripMenuItem = new ToolStripMenuItem();
+            sharpenToolStripMenuItem = new ToolStripMenuItem();
+            meanRemovalToolStripMenuItem = new ToolStripMenuItem();
+            embossLaplacianToolStripMenuItem = new ToolStripMenuItem();
             pictureBox2 = new PictureBox();
             tabControl1 = new TabControl();
             tabPage2.SuspendLayout();
@@ -186,7 +192,7 @@
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fIleToolStripMenuItem, dIPToolStripMenuItem, cameraOnToolStripMenuItem, cameraOffToolStripMenuItem, videoToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fIleToolStripMenuItem, dIPToolStripMenuItem, cameraOnToolStripMenuItem, cameraOffToolStripMenuItem, videoToolStripMenuItem, convolutionToolStripMenuItem });
             menuStrip1.Location = new Point(3, 3);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(1274, 28);
@@ -286,6 +292,48 @@
             greyscaleToolStripMenuItem1.Size = new Size(155, 26);
             greyscaleToolStripMenuItem1.Text = "Greyscale";
             // 
+            // convolutionToolStripMenuItem
+            // 
+            convolutionToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { smoothToolStripMenuItem, gaussianBlurToolStripMenuItem, sharpenToolStripMenuItem, meanRemovalToolStripMenuItem, embossLaplacianToolStripMenuItem });
+            convolutionToolStripMenuItem.Name = "convolutionToolStripMenuItem";
+            convolutionToolStripMenuItem.Size = new Size(103, 24);
+            convolutionToolStripMenuItem.Text = "Convolution";
+            // 
+            // smoothToolStripMenuItem
+            // 
+            smoothToolStripMenuItem.Name = "smoothToolStripMenuItem";
+            smoothToolStripMenuItem.Size = new Size(224, 26);
+            smoothToolStripMenuItem.Text = "Smooth";
+            smoothToolStripMenuItem.Click += smoothToolStripMenuItem_Click;
+            // 
+            // gaussianBlurToolStripMenuItem
+            // 
+            gaussianBlurToolStripMenuItem.Name = "gaussianBlurToolStripMenuItem";
+            gaussianBlurToolStripMenuItem.Size = new Size(224, 26);
+            gaussianBlurToolStripMenuItem.Text = "Gaussian Blur";
+            gaussianBlurToolStripMenuItem.Click += gaussianBlurToolStripMenuItem_Click;
+            // 
+            // sharpenToolStripMenuItem
+            // 
+            sharpenToolStripMenuItem.Name = "sharpenToolStripMenuItem";
+            sharpenToolStripMenuItem.Size = new Size(224, 26);
+            sharpenToolStripMenuItem.Text = "Sharpen";
+            sharpenToolStripMenuItem.Click += sharpenToolStripMenuItem_Click;
+            // 
+            // meanRemovalToolStripMenuItem
+            // 
+            meanRemovalToolStripMenuItem.Name = "meanRemovalToolStripMenuItem";
+            meanRemovalToolStripMenuItem.Size = new Size(224, 26);
+            meanRemovalToolStripMenuItem.Text = "Mean Removal";
+            meanRemovalToolStripMenuItem.Click += meanRemovalToolStripMenuItem_Click;
+            // 
+            // embossLaplacianToolStripMenuItem
+            // 
+            embossLaplacianToolStripMenuItem.Name = "embossLaplacianToolStripMenuItem";
+            embossLaplacianToolStripMenuItem.Size = new Size(224, 26);
+            embossLaplacianToolStripMenuItem.Text = "Emboss Laplacian";
+            embossLaplacianToolStripMenuItem.Click += embossLaplacianToolStripMenuItem_Click;
+            // 
             // pictureBox2
             // 
             pictureBox2.Location = new Point(676, 53);
@@ -359,5 +407,11 @@
         private ToolStripMenuItem greyscaleToolStripMenuItem1;
         private PictureBox pictureBox2;
         private TabControl tabControl1;
+        private ToolStripMenuItem convolutionToolStripMenuItem;
+        private ToolStripMenuItem smoothToolStripMenuItem;
+        private ToolStripMenuItem gaussianBlurToolStripMenuItem;
+        private ToolStripMenuItem sharpenToolStripMenuItem;
+        private ToolStripMenuItem meanRemovalToolStripMenuItem;
+        private ToolStripMenuItem embossLaplacianToolStripMenuItem;
     }
 }
