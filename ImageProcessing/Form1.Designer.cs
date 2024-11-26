@@ -40,6 +40,7 @@
             pictureBox4 = new PictureBox();
             pictureBox3 = new PictureBox();
             tabPage1 = new TabPage();
+            label1 = new Label();
             pictureBox1 = new PictureBox();
             menuStrip1 = new MenuStrip();
             fIleToolStripMenuItem = new ToolStripMenuItem();
@@ -61,6 +62,7 @@
             sharpenToolStripMenuItem = new ToolStripMenuItem();
             meanRemovalToolStripMenuItem = new ToolStripMenuItem();
             embossLaplacianToolStripMenuItem = new ToolStripMenuItem();
+            coinsToolStripMenuItem = new ToolStripMenuItem();
             pictureBox2 = new PictureBox();
             tabControl1 = new TabControl();
             tabPage2.SuspendLayout();
@@ -168,6 +170,7 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(label1);
             tabPage1.Controls.Add(pictureBox1);
             tabPage1.Controls.Add(menuStrip1);
             tabPage1.Controls.Add(pictureBox2);
@@ -178,6 +181,15 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Image Processing";
             tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(676, 30);
+            label1.Name = "label1";
+            label1.Size = new Size(89, 20);
+            label1.TabIndex = 3;
+            label1.Text = "Total Value: ";
             // 
             // pictureBox1
             // 
@@ -192,7 +204,7 @@
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fIleToolStripMenuItem, dIPToolStripMenuItem, cameraOnToolStripMenuItem, cameraOffToolStripMenuItem, videoToolStripMenuItem, convolutionToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fIleToolStripMenuItem, dIPToolStripMenuItem, cameraOnToolStripMenuItem, cameraOffToolStripMenuItem, videoToolStripMenuItem, convolutionToolStripMenuItem, coinsToolStripMenuItem });
             menuStrip1.Location = new Point(3, 3);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(1274, 28);
@@ -302,37 +314,44 @@
             // smoothToolStripMenuItem
             // 
             smoothToolStripMenuItem.Name = "smoothToolStripMenuItem";
-            smoothToolStripMenuItem.Size = new Size(224, 26);
+            smoothToolStripMenuItem.Size = new Size(210, 26);
             smoothToolStripMenuItem.Text = "Smooth";
             smoothToolStripMenuItem.Click += smoothToolStripMenuItem_Click;
             // 
             // gaussianBlurToolStripMenuItem
             // 
             gaussianBlurToolStripMenuItem.Name = "gaussianBlurToolStripMenuItem";
-            gaussianBlurToolStripMenuItem.Size = new Size(224, 26);
+            gaussianBlurToolStripMenuItem.Size = new Size(210, 26);
             gaussianBlurToolStripMenuItem.Text = "Gaussian Blur";
             gaussianBlurToolStripMenuItem.Click += gaussianBlurToolStripMenuItem_Click;
             // 
             // sharpenToolStripMenuItem
             // 
             sharpenToolStripMenuItem.Name = "sharpenToolStripMenuItem";
-            sharpenToolStripMenuItem.Size = new Size(224, 26);
+            sharpenToolStripMenuItem.Size = new Size(210, 26);
             sharpenToolStripMenuItem.Text = "Sharpen";
             sharpenToolStripMenuItem.Click += sharpenToolStripMenuItem_Click;
             // 
             // meanRemovalToolStripMenuItem
             // 
             meanRemovalToolStripMenuItem.Name = "meanRemovalToolStripMenuItem";
-            meanRemovalToolStripMenuItem.Size = new Size(224, 26);
+            meanRemovalToolStripMenuItem.Size = new Size(210, 26);
             meanRemovalToolStripMenuItem.Text = "Mean Removal";
             meanRemovalToolStripMenuItem.Click += meanRemovalToolStripMenuItem_Click;
             // 
             // embossLaplacianToolStripMenuItem
             // 
             embossLaplacianToolStripMenuItem.Name = "embossLaplacianToolStripMenuItem";
-            embossLaplacianToolStripMenuItem.Size = new Size(224, 26);
+            embossLaplacianToolStripMenuItem.Size = new Size(210, 26);
             embossLaplacianToolStripMenuItem.Text = "Emboss Laplacian";
             embossLaplacianToolStripMenuItem.Click += embossLaplacianToolStripMenuItem_Click;
+            // 
+            // coinsToolStripMenuItem
+            // 
+            coinsToolStripMenuItem.Name = "coinsToolStripMenuItem";
+            coinsToolStripMenuItem.Size = new Size(59, 24);
+            coinsToolStripMenuItem.Text = "Coins";
+            coinsToolStripMenuItem.Click += coinsToolStripMenuItem_Click;
             // 
             // pictureBox2
             // 
@@ -413,5 +432,7 @@
         private ToolStripMenuItem sharpenToolStripMenuItem;
         private ToolStripMenuItem meanRemovalToolStripMenuItem;
         private ToolStripMenuItem embossLaplacianToolStripMenuItem;
+        private ToolStripMenuItem coinsToolStripMenuItem;
+        private Label label1;
     }
 }

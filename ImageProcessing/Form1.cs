@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using WebCamLib;
+using OpenCvSharp;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ImageProcessing
 {
@@ -286,6 +288,88 @@ namespace ImageProcessing
             processed = new Bitmap(loaded);
             BitmapFilter.EmbossLaplacian(processed);
             pictureBox2.Image = processed;
+        }
+
+        private void coinsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            processed = new Bitmap(loaded);
+            double totalValue = DetectAndMeasureCoins(processed);
+            label1.Text += totalValue.ToString("F");
+            pictureBox2.Image = processed;
+        }
+
+        public static double DetectAndMeasureCoins(Bitmap bitmap)
+        {
+            // Convert Bitmap to OpenCvSharp Mat
+            Mat image = BitmapToMat(bitmap);
+            Mat gray = new Mat();
+            Mat blurred = new Mat();
+            Mat edges = new Mat();
+
+            // Convert to grayscale
+            Cv2.CvtColor(image, gray, ColorConversionCodes.BGR2GRAY);
+
+            // Apply Gaussian Blur
+            Cv2.GaussianBlur(gray, blurred, new OpenCvSharp.Size(11, 11), 0);
+
+            // Detect edges using Canny
+            Cv2.Canny(blurred, edges, 30, 150);
+
+            // Find contours
+            OpenCvSharp.Point[][] contours;
+            HierarchyIndex[] hierarchy;
+            Cv2.FindContours(edges, out contours, out hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
+
+            double totalValue = 0;
+
+            foreach (var contour in contours)
+            {
+                // Approximate contour
+                var approx = Cv2.ApproxPolyDP(contour, 0.02 * Cv2.ArcLength(contour, true), true);
+
+                // Filter circular contours
+                if (approx.Length > 5)
+                {
+                    double area = Cv2.ContourArea(contour);
+                    double radius = Math.Sqrt(area / Math.PI);
+
+                    // Get the minimum enclosing circle
+                    Point2f center;
+                    float enclosingRadius;
+                    Cv2.MinEnclosingCircle(contour, out center, out enclosingRadius);
+
+                    // Map the radius or area to coin values
+                    double coinValue = GetCoinValueByRadius(area); // Use a helper method for this
+                    totalValue += coinValue;
+                }
+            }
+            return totalValue;
+        }
+
+        // Helper method to map radius or area to coin value
+        private static double GetCoinValueByRadius(double radius)
+        {
+            // Define thresholds for coin sizes (adjust based on actual coin measurements)
+            if (radius >= 7000) return 5.00; // Example: PHP 10 coin
+            if (radius >= 6000) return 1.00;  // Example: PHP 5 coin
+            if (radius >= 4000) return 0.25;  // Example: PHP 1 coin
+            if (radius >= 3000) return 0.10;  // Example: PHP 0.25 coin
+            if (radius >= 2000) return 0.05;
+
+            return 0; // Default for unrecognized sizes
+        }
+
+        private static Mat BitmapToMat(Bitmap bitmap)
+        {
+            // Convert Bitmap to byte array
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png); // Save bitmap to stream
+                ms.Position = 0;
+
+                // Create OpenCvSharp Mat from memory stream
+                return Mat.FromStream(ms, ImreadModes.Color);
+            }
         }
     }
 }
